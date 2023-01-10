@@ -1,0 +1,283 @@
+1․Ամենամեծ ընդհանուր բաժանարար և ամենափոքր ընդհանոջր բազմապատիկ
+#include<iostream>
+using namespace std;
+
+int gcd(int n, int m){
+    int i = 1, k;
+    if(n < 0)
+        n = -n;
+    if(m < 0)
+        m = -m;
+    if(n < m) {
+        while(i <= n) {
+            if(n % i == 0 && m % i == 0)
+                k = i;
+            i++;
+        }
+    }
+    else {
+        while(i <= m) {
+            if(n % i == 0 && m % i == 0)
+                k = i;
+            i++;
+        }
+    }
+    return k;
+}
+
+int lcm(int n, int m){
+    int k = gcd(n, m);
+    int p = n * m / k;
+    return p;
+}
+
+int main() {
+    int n, m;
+    cin >> n;
+    cin >> m;
+    // int k = gcd(n, m);
+    // cout << k;
+    cout << "GCD = " << gcd(n, m) << endl;
+    cout << "LMC = " << lcm(n, m);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2․ n տարր պարունակող զանգվածի տարրերը 1, n+1 չկրկնվող թվերն են։ Գտնել պակասող թիվը։
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n, str1 = 1, str2 = 1, i, result;
+    cin >> n;
+    int a[n];
+    for(i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    i = 0;
+    while(i < n){
+        str1 = str1 * a[i];
+        i++;
+    }
+    i = 1;
+    while(i <= n + 1){
+        str2 = str2 * i;
+        i++;
+    }
+    result= str2 / str1;
+    cout << "Pakasox tarry: " << result;
+}
+
+
+
+
+
+
+3․  Գաղտնագրում շաբլոնի մեթոդով։
+
+#include <iostream>
+using namespace std;
+string array1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+string array2 = "ZABCDEFGHIGKLMNOPQRSTUVWXYzabcdefghijklmnopqrstuvwxy1234567890";
+
+string ncoder(string str){
+    int j;
+    int i = 0;
+    while(str[i]){
+        j = 0;
+        while(array2[j]){
+            if(str[i] == array2[j]){
+                str[i] = array1[j];
+                break;
+            }
+            j++;
+        }
+        i++;
+    }
+    return str;
+}
+
+string dcoder(string str){
+    int j;
+    int i = 0;
+    while(str[i]){
+        j = 0;
+        while(array1[j]){
+            if(str[i] == array1[j]){
+                str[i] = array2[j];
+                break;
+            }
+            j++;
+        }
+        i++;
+    }
+    return str;
+}
+
+int main(){
+    string str = "A big cat - 12";
+    string decodedStr = dcoder(s);
+    string old = ncoder(decodedStr);
+    cout << decodedStr << endl << old;
+   
+}
+
+
+
+
+
+
+
+
+
+4․  Գաղտնագրում տողեր/սյուներ մեթոդով։
+
+#include <iostream>
+#include <string>
+#include <math.h>
+using namespace std;
+
+string dCoder(string str, int n){
+    int i, j, k = 0;
+    char a[n + 1][n + 1];
+    string str;
+    for(i = 0; i < n; i++){
+        for(j = 0; j < n; j++){
+            a[i][j] = str[k];
+            k++;
+        }
+    }
+    k = 0;
+    for(i = 0; i < n; i++){
+        for(j = 0; j < n; j++){
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+    for(j = 0; j < n; j++){
+        for(i = 0; i < n; i++){
+            str[k] = a[i][j];
+            k++;
+        }
+    }
+    return result;
+}
+
+int main()
+{
+    string naxnakan = "12345678 91234";
+    int n = 4;
+    string result = dCoder(naxnakan, n);
+    cout << "Encrypt this text: ";
+    for(int i = 0; i < naxnakan.length(); i++) {
+        cout << naxnakan[i];
+    }
+    cout << endl;
+    cout << "Encrypted text is: ";
+    for(int i = 0; i < naxnakan.length(); i++) {
+        cout << result[i];
+    }
+}
+
+
+
+
+5.  Տվյալների սեղմման RLE մեթոդ։
+
+#include <cstdlib>
+#include<iostream>
+#include <string.h>
+using namespace std;
+
+int main() {
+    string tox = "aaaaabbbbbbNNNN";
+    cout << "RLE is: ";
+    for( int i = 0; i < tox.length(); i++){
+        int k = 1;
+        while(tox[i] == tox[i + 1] && i < tox.length() - 1){
+            k++;
+            i++;
+        }
+        cout << tox[i] << k;
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+6.CRC ալգորիթմ
+//sender
+#include <iostream>
+using namespace std;
+int main(){
+    string msg, crc, encoded = "";
+    cout << "Enter the message: ";
+    getline(cin, msg);
+    cout << "Enter the crc generator: ";
+    getline(cin, crc);
+    int m = msg.length(), n = crc.length();
+    encoded += msg;
+    for(int i = 1; i <= n - 1; i++){
+        encoded += '0';
+    }
+    for(int i = 0; i <= encoded.length() - n; ){
+        for(int j = 0; j < n; j++)
+            encoded[i + j]= encoded[i + j] == crc[j] ? '0':'1';
+        for( ; i < encoded.length() && encoded[i] != '1'; i++);
+    }
+    cout << msg + encoded.substr(encoded.length() - n + 1);
+    return 0;
+}
+
+
+
+
+
+
+
+//reciever
+#include <iostream>
+using namespace std;
+int main(){
+    string crc, encoded;
+    cout << "Enter the encoded: ";
+    getline(cin, encoded);
+    cout << "Enter the crc generator: ";
+    getline(cin, crc);
+    for(int i = 0; i <= encoded.length() - crc.length(); ){
+        for(int j = 0; j < crc.length(); j++)
+            encoded[i + j]= encoded[i + j] == crc[j] ? '0':'1';
+        for( ; i < encoded.length() && encoded[i] != '1'; i++);
+    }
+    for(char i: encoded.substr(encoded.length() - crc.length() ))
+        if(i != '0'){
+            cout << "Error...";
+            return 0;
+        }
+        cout << "No Error!";
+    return 0;
+}
